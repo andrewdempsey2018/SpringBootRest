@@ -1,6 +1,7 @@
 package ie.andrew.consume.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import ie.andrew.consume.model.Quote;
 import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,10 +104,12 @@ public class Endpoints {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", "asdf");
 
-        ResponseEntity response = restTemplate.exchange("https://jsonplaceholder.typicode.com/posts/", HttpMethod.GET, new HttpEntity<String>(headers), JsonNode.class);
+        ResponseEntity response = restTemplate.exchange("https://jsonplaceholder.typicode.com/posts/", HttpMethod.GET, new HttpEntity<String>(headers), String.class);
 
-        System.out.println(response.getBody());
-
+        //JsonNode x = new ArrayNode(response.);
+        //System.out.println(response.getBody());
+        System.out.println("test 1 2 3 4");
+        System.out.println(response);
 
 
         return "Headers done...";
