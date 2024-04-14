@@ -25,7 +25,7 @@ public class ConsumeApplication {
 	}
 
 	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+	public static RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 
@@ -39,37 +39,9 @@ public class ConsumeApplication {
 	@Profile("!test")
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			/*Quote quote = restTemplate.getForObject(
-					"http://localhost:8080/api/random", Quote.class);
-			log.info(quote.toString());
-
-
-			JsonNode quote = restTemplate.getForObject(
-					"http://localhost:8080/api", JsonNode.class);
-			log.info(quote.toString());*/
 
 			System.out.println("username: " + userName);
 			System.out.println("password: " + password);
-
-			ArrayList<Quote> quotes = new ArrayList<>();
-
-			quotes.add(restTemplate.getForObject(
-					"https://jsonplaceholder.typicode.com/posts/1", Quote.class));
-
-			quotes.add(restTemplate.getForObject(
-					"https://jsonplaceholder.typicode.com/posts/2", Quote.class));
-
-			quotes.add(restTemplate.getForObject(
-					"https://jsonplaceholder.typicode.com/posts/3", Quote.class));
-
-			quotes.add(restTemplate.getForObject(
-					"https://jsonplaceholder.typicode.com/posts/4", Quote.class));
-
-
-			quotes.forEach(quote->{
-				System.out.println(quote.getId());
-				System.out.println("***");
-			});
 
 		};
 	}
