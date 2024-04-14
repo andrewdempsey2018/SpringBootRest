@@ -1,5 +1,6 @@
 package ie.andrew.consume;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -28,9 +29,25 @@ public class ConsumeApplication {
 	@Profile("!test")
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			Quote quote = restTemplate.getForObject(
+			/*Quote quote = restTemplate.getForObject(
 					"http://localhost:8080/api/random", Quote.class);
 			log.info(quote.toString());
+
+
+			JsonNode quote = restTemplate.getForObject(
+					"http://localhost:8080/api", JsonNode.class);
+			log.info(quote.toString());*/
+
+			JsonNode quote = restTemplate.getForObject(
+					"https://jsonplaceholder.typicode.com/posts/1", JsonNode.class);
+			log.info(quote.toString());
+
+			System.out.println(quote.getNodeType());
+			quote.forEach(q->{
+				System.out.println(q.get("title"));
+			});
+
+			//https://jsonplaceholder.typicode.com/
 		};
 	}
 }
