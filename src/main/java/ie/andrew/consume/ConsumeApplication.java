@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import ie.andrew.consume.model.Quote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,6 +29,12 @@ public class ConsumeApplication {
 		return builder.build();
 	}
 
+	@Value( "${security.username}" )
+	private String userName;
+
+	@Value( "${security.password}" )
+	private String password;
+
 	@Bean
 	@Profile("!test")
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
@@ -40,6 +47,9 @@ public class ConsumeApplication {
 			JsonNode quote = restTemplate.getForObject(
 					"http://localhost:8080/api", JsonNode.class);
 			log.info(quote.toString());*/
+
+			System.out.println("username: " + userName);
+			System.out.println("password: " + password);
 
 			ArrayList<Quote> quotes = new ArrayList<>();
 
