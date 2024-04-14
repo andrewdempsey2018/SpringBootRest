@@ -2,9 +2,11 @@ package ie.andrew.consume.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import ie.andrew.consume.model.Quote;
+import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,6 +94,22 @@ public class Endpoints {
 
 
         return quote;
+
+    }
+
+    @GetMapping("/headers")
+    String Headers() {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cookie", "asdf");
+
+        ResponseEntity response = restTemplate.exchange("https://jsonplaceholder.typicode.com/posts/", HttpMethod.GET, new HttpEntity<String>(headers), JsonNode.class);
+
+        System.out.println(response.getBody());
+
+
+
+        return "Headers done...";
 
     }
 
