@@ -7,6 +7,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
@@ -36,7 +37,7 @@ public class Endpoints {
             System.out.println("---");
         });
 
-        return "flippeddy floppedy do";
+        return "test 1234";
 
     }
 
@@ -52,6 +53,45 @@ public class Endpoints {
         });
 
         return quotes.get(0).get("title").toString();
+
+    }
+
+    @GetMapping("/getnode")
+    JsonNode GetNode() {
+        JsonNode quote = null;
+
+        quote = restTemplate.getForObject(
+                "https://jsonplaceholder.typicode.com/posts/5", JsonNode.class);
+
+
+
+        return quote;
+
+    }
+
+    @GetMapping("/getquote")
+    Quote GetQuote() {
+        Quote quote = null;
+
+        quote = restTemplate.getForObject(
+                "https://jsonplaceholder.typicode.com/posts/7", Quote.class);
+
+
+
+        return quote;
+
+    }
+
+    @GetMapping("/getquotenumber")
+    Quote GetQuoteNumber(@RequestParam String number) {
+        Quote quote = null;
+
+        quote = restTemplate.getForObject(
+                "https://jsonplaceholder.typicode.com/posts/" + number, Quote.class);
+
+
+
+        return quote;
 
     }
 
